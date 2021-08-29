@@ -47,4 +47,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Status::class);
     }
+
+    public function timeline()
+    {
+        $following = $this->followed->pluck('id');
+        return Status::whereIn('user_id', $following)
+                            ->orWhere('user_id', $this->id)
+                            ->latest()->get();
+    }
+
+    public function followed()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'user_id',
+            'following_user_id'
+        )->withTimestamps();
+    }
+
+    public function follow(User $user)
+    {
+        return $this->followed()->save($user);
+    }
 }
