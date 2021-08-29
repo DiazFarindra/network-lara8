@@ -70,4 +70,12 @@ class User extends Authenticatable
     {
         return $this->followed()->save($user);
     }
+
+    public function makeStatus($string)
+    {
+        $this->status()->create([
+            'body' => $string,
+            'identifier' => \Str::slug($this->id . \Str::random(31)),
+        ]);
+    }
 }
