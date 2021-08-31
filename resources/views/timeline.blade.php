@@ -71,6 +71,9 @@
                                 </div>
                             </div>
                         @empty
+                            <div class="w-full p-2 text-base antialiased italic text-gray-700 bg-green-300 border border-green-300 rounded-md bg-opacity-30">
+                                you are not following anyone yet
+                            </div>
                         @endforelse
                     </div>
                 </x-card>

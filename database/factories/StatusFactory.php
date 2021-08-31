@@ -25,7 +25,7 @@ class StatusFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'identifier' => \strtolower(Str::random(32)),
+            'identifier' => \strtolower(Str::random(8)),
             'body' => $this->faker->realText(),
         ];
     }
