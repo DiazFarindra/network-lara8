@@ -106,6 +106,6 @@ class User extends Authenticatable
 
     public function follow(User $user)
     {
-        return $this->followed()->save($user);
+        return $this->followed()->toggle($user);
     }
 }

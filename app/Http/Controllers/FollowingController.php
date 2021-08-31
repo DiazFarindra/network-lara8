@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FollowingController extends Controller
 {
@@ -17,5 +19,11 @@ class FollowingController extends Controller
 
         return \view('users.following',
         \compact('user', 'followersData'));
+    }
+
+    public function store(Request $request, User $user)
+    {
+        Auth::user()->follow($user);
+        return \redirect()->back()->with('success', 'followed!');
     }
 }

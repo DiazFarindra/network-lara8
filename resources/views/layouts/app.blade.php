@@ -31,6 +31,7 @@
 
             <!-- Page Content -->
             <main class="pt-8">
+                <x-alert />
                 {{ $slot }}
             </main>
 
