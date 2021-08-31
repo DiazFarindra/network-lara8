@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\ProfileInformationContoller;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TimelineController;
@@ -24,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     // timeline management
     Route::get('/timeline', TimelineController::class)->name('timeline');
     Route::post('/timeline', [StatusController::class, 'store'])->name('status.store');
+
+    Route::get('profile/{user}/{follows}', FollowingController::class)->name('profile.followers');
 
     Route::get('profile/{user}', ProfileInformationContoller::class)->name('profile')->withoutMiddleware('auth');
 });

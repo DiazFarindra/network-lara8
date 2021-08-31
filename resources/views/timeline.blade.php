@@ -35,7 +35,7 @@
                 {{-- timeline card --}}
                 <div class="mt-7 space-y-7">
                     <div class="space-y-5">
-                        <x-status-card :status="$status"></x-status-card>
+                        <x-status-card :status="$status" />
                     </div>
                 </div>
             </div>
@@ -45,23 +45,7 @@
                 <x-card>
                     <h1 class="mb-5 font-semibold">Recently Follows</h1>
                     <div class="space-y-5">
-                        @forelse (Auth::user()->followed()->limit(3)->get() as $user)
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 mr-3">
-                                    <img class="w-10 h-10 rounded-full" src="{{ $user->gravatar() }}" alt="{{ $user->name }}">
-                                </div>
-                                <div>
-                                    <div class="font-semibold">{{ $user->name }}</div>
-                                    <div class="text-sm text-gray-500">
-                                        {{ $user->pivot->created_at->diffForHumans() }}
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="w-full p-2 text-base antialiased italic text-gray-700 bg-green-300 border border-green-300 rounded-md bg-opacity-30">
-                                you are not following anyone yet
-                            </div>
-                        @endforelse
+                        <x-followers-card :users="Auth::user()->followed()->limit(3)->get()" />
                     </div>
                 </x-card>
             </div>
