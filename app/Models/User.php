@@ -84,6 +84,16 @@ class User extends Authenticatable
                             ->latest()->get();
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'following_user_id',
+            'user_id'
+        )->withTimestamps();
+    }
+
     public function followed()
     {
         return $this->belongsToMany(

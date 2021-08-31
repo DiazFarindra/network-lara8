@@ -35,20 +35,7 @@
                 {{-- timeline card --}}
                 <div class="mt-7 space-y-7">
                     <div class="space-y-5">
-                        @foreach ($status as $status)
-                            <x-card>
-                                <div class="flex">
-                                    <div class="flex-shrink-0 mr-3">
-                                        <img class="w-10 h-10 rounded-full" src="{{ $status->author->gravatar() }}" alt="{{ $status->author->name }}">
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold">{{ $status->author->name }}</div>
-                                        <div class="leading-relaxed">{{ $status->body }}</div>
-                                        <div class="text-sm text-gray-500">{{ $status->created_at->diffForHumans() }}</div>
-                                    </div>
-                                </div>
-                            </x-card>
-                        @endforeach
+                        <x-status-card :status="$status"></x-status-card>
                     </div>
                 </div>
             </div>
@@ -61,7 +48,7 @@
                         @forelse (Auth::user()->followed()->limit(3)->get() as $user)
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 mr-3">
-                                    <img class="w-10 h-10 rounded-full" src="{{ $user->gravatar() }}" alt="{{ $status->author->name }}">
+                                    <img class="w-10 h-10 rounded-full" src="{{ $user->gravatar() }}" alt="{{ $user->name }}">
                                 </div>
                                 <div>
                                     <div class="font-semibold">{{ $user->name }}</div>

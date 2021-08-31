@@ -25,7 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/timeline', TimelineController::class)->name('timeline');
     Route::post('/timeline', [StatusController::class, 'store'])->name('status.store');
 
-    Route::get('profile/{user}', ProfileInformationContoller::class)->name('profile');
+    Route::get('profile/{user}', ProfileInformationContoller::class)->name('profile')->withoutMiddleware('auth');
 });
 
 require __DIR__.'/auth.php';
