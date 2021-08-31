@@ -43,9 +43,31 @@ class User extends Authenticatable
     ];
 
 
+    public function gravatar($size = 100)
+    {
+        // random cartoon avatar
+        // $seed = [
+        //     'jake', 'jenni', 'jolee', 'jeane', 'julie', 'jodi', 'jacques', 'jean'
+        // ];
+        // $pick = \Arr::random($seed);
+        // return 'https://joeschmoe.io/api/v1/' . $pick;
+
+        // gravatar
+        $default = "mm";
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+    }
+
     public function status()
     {
         return $this->hasMany(Status::class);
+    }
+
+    public function makeStatus($string)
+    {
+        $this->status()->create([
+            'body' => $string,
+            'identifier' => \Str::slug($this->id . \Str::random(31)),
+        ]);
     }
 
     public function timeline()
@@ -69,13 +91,5 @@ class User extends Authenticatable
     public function follow(User $user)
     {
         return $this->followed()->save($user);
-    }
-
-    public function makeStatus($string)
-    {
-        $this->status()->create([
-            'body' => $string,
-            'identifier' => \Str::slug($this->id . \Str::random(31)),
-        ]);
     }
 }

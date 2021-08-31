@@ -15,7 +15,7 @@
                         @csrf
                         <div class="flex">
                             <div class="flex-shrink-0 mr-3">
-                                <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ Auth::user()->name }}">
+                                <img class="w-10 h-10 rounded-full" src="{{ Auth::user()->gravatar() }}" alt="{{ Auth::user()->name }}">
                             </div>
                             <div class="w-full">
                                 <div class="font-semibold">{{ Auth::user()->name }}</div>
@@ -39,7 +39,7 @@
                             <x-card>
                                 <div class="flex">
                                     <div class="flex-shrink-0 mr-3">
-                                        <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ $status->author->name }}">
+                                        <img class="w-10 h-10 rounded-full" src="{{ $status->author->gravatar() }}" alt="{{ $status->author->name }}">
                                     </div>
                                     <div>
                                         <div class="font-semibold">{{ $status->author->name }}</div>
@@ -61,7 +61,7 @@
                         @forelse (Auth::user()->followed()->limit(3)->get() as $user)
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 mr-3">
-                                    <img class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/150" alt="{{ $status->author->name }}">
+                                    <img class="w-10 h-10 rounded-full" src="{{ $user->gravatar() }}" alt="{{ $status->author->name }}">
                                 </div>
                                 <div>
                                     <div class="font-semibold">{{ $user->name }}</div>
