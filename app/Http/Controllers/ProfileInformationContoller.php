@@ -18,7 +18,7 @@ class ProfileInformationContoller extends Controller
         //
         return \view('users.show', [
             'user' => $user,
-            'status' => $user->status()->latest()->get(),
+            'status' => $user->status()->with('author')->latest()->get(),
         ]);
     }
 }
