@@ -28,7 +28,7 @@
                         </form>
                     </div>
                 @else
-                    <a href="" class="px-5 py-2 antialiased font-semibold transition duration-200 border-2 border-blue-400 rounded hover:text-white hover:bg-blue-400 focus:ring focus:ring-offset-1 focus:ring-blue-500">
+                    <a href="{{ route('profile.edit') }}" class="px-5 py-2 antialiased font-semibold transition duration-200 border-2 border-blue-400 rounded hover:text-white hover:bg-blue-400 focus:ring focus:ring-offset-1 focus:ring-blue-500">
                         edit profile
                     </a>
                 @endif

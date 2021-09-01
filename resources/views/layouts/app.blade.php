@@ -18,6 +18,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-white">
+            <x-alert />
             @include('layouts.navigation')
 
             @isset($header)
@@ -31,7 +32,6 @@
 
             <!-- Page Content -->
             <main class="pt-8">
-                <x-alert />
                 {{ $slot }}
             </main>
 

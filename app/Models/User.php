@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FollowsTraits;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, FollowsTraits;
 
     /**
      * The attributes that are mass assignable.
@@ -51,13 +52,6 @@ class User extends Authenticatable
 
     public function gravatar($size = 100)
     {
-        // random cartoon avatar
-        // $seed = [
-        //     'jake', 'jenni', 'jolee', 'jeane', 'julie', 'jodi', 'jacques', 'jean'
-        // ];
-        // $pick = \Arr::random($seed);
-        // return 'https://joeschmoe.io/api/v1/' . $pick;
-
         // gravatar
         $default = "mm";
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
@@ -82,30 +76,5 @@ class User extends Authenticatable
         return Status::with('author')->whereIn('user_id', $following)
                             ->orWhere('user_id', $this->id)
                             ->latest()->get();
-    }
-
-    public function followers()
-    {
-        return $this->belongsToMany(
-            User::class,
-            'follows',
-            'following_user_id',
-            'user_id'
-        )->withTimestamps();
-    }
-
-    public function followed()
-    {
-        return $this->belongsToMany(
-            User::class,
-            'follows',
-            'user_id',
-            'following_user_id'
-        )->withTimestamps();
-    }
-
-    public function follow(User $user)
-    {
-        return $this->followed()->toggle($user);
     }
 }

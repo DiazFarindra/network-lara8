@@ -5,6 +5,8 @@ use App\Http\Controllers\FollowingController;
 use App\Http\Controllers\ProfileInformationContoller;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\UpdatePasswordController;
+use App\Http\Controllers\UpdateProfileInformationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +33,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('explore', ExploreUserController::class)->name('users.index');
 
     // profile management
-    Route::get('profile/{user}/{follows}', FollowingController::class)->name('profile.followers');
-    Route::post('profile/{user}', [FollowingController::class, 'store'])->name('follows.store');
-    Route::get('profile/{user}', ProfileInformationContoller::class)->name('profile')->withoutMiddleware('auth');
+    Route::prefix('profile')->group(function () {
+        // profile
+        Route::get('/{user}/{follows}', FollowingController::class)->name('profile.followers');
+        Route::post('/{user}', [FollowingController::class, 'store'])->name('follows.store');
+
+        // update profile
+        Route::get('edit', [UpdateProfileInformationController::class, 'edit'])->name('profile.edit');
+        Route::patch('update', [UpdateProfileInformationController::class, 'update'])->name('profile.update');
+
+        // update password
+        Route::get('/u/password/edit', [UpdatePasswordController::class, 'edit'])->name('edit.password');
+        Route::patch('/u/password/update', [UpdatePasswordController::class, 'update'])->name('update.password');
+
+        // without auth
+        Route::get('/{user}', ProfileInformationContoller::class)->name('profile')->withoutMiddleware('auth');
+    });
 });
 
 require __DIR__.'/auth.php';
